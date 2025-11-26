@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 const Header = () => {
   return (
     <>
-      <div className="absolute mt-3 flex justify-between items-center  w-full z-50 pointer-events-auto">
+      <div className="absolute mt-2 flex justify-between items-center  w-full z-50 pointer-events-auto">
         <div className="ml-32 w-48">
           <img
             src="https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production_2025-08-26/consent/87b6a5c0-0104-4e96-a291-092c11350111/0198e689-25fa-7d64-bb49-0f7e75f898d2/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
@@ -13,7 +13,7 @@ const Header = () => {
           <select
             name="language"
             id="language"
-            className="rounded-md w-32 border text-center  bg-transparent font-bold text-white"
+            className="rounded-md w-32 border text-center  bg-black opacity-30 font-bold text-white"
           >
             <option value="english" className="bg-black bg-opacity-50 rounded-sm text-white">
               English
