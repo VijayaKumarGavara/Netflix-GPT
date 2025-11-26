@@ -1,5 +1,28 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+
+import { signOut } from "firebase/auth";
+import { auth } from "../utils/firebase";
+
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 const Header = () => {
+  const navigate = useNavigate();
+  const user = useSelector((store) => store.user);
+  const isLoggedIn = Boolean(user && user.uid);
+  console.log(user, isLoggedIn);
+  function handleSignOut() {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        navigate("/");
+        console.log("Signed Out Successfully");
+      })
+      .catch((error) => {
+        // An error happened.
+        console.log(error);
+        navigate("/error");
+      });
+  }
   return (
     <>
       <div className="absolute mt-2 flex justify-between items-center  w-full z-50 pointer-events-auto">
@@ -15,25 +38,49 @@ const Header = () => {
             id="language"
             className="rounded-md w-32 border text-center  bg-black opacity-30 font-bold text-white"
           >
-            <option value="english" className="bg-black bg-opacity-50 rounded-sm text-white">
+            <option
+              value="english"
+              className="bg-black bg-opacity-50 rounded-sm text-white"
+            >
               English
             </option>
-            <option value="hindi" className="bg-black bg-opacity-50 rounded-sm text-white">
+            <option
+              value="hindi"
+              className="bg-black bg-opacity-50 rounded-sm text-white"
+            >
               Hindi
             </option>
-            <option value="telugu" className="bg-black bg-opacity-50 rounded-sm text-white">
+            <option
+              value="telugu"
+              className="bg-black bg-opacity-50 rounded-sm text-white"
+            >
               Telugu
             </option>
           </select>
-
-          <Link to="/login">
-            <button
-              type="button"
-              className="cursor-pointer w-20 h-8 bg-red-600 font-bold rounded-md text-white"
-            >
-              Sign In
-            </button>
-          </Link>
+          {!isLoggedIn && (
+            <Link to="/login">
+              <button
+                type="button"
+                className="cursor-pointer w-20 h-8 bg-red-600 font-bold rounded-md text-white"
+              >
+                Sign In
+              </button>
+            </Link>
+          )}
+          {isLoggedIn && (
+            <>
+              <AccountCircleIcon className="bg-white outline-2"/>
+              <Link to="/">
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="cursor-pointer w-20 h-8 bg-red-600 font-bold rounded-md text-white"
+                >
+                  Sign Out
+                </button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </>

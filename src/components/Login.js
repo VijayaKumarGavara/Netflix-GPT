@@ -1,18 +1,23 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 // import bg from "../assets/bg.png";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import validateData from "../utils/validateData";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 const Login = () => {
   let [isSignIn, setSignIn] = useState(true);
   let [validateMessage, setValidateMessage] = useState(null);
   let [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
@@ -44,8 +49,27 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
-          // ...
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL:
+              "https://media.licdn.com/dms/image/v2/D5603AQE4-4Tm6aAicA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730643783062?e=1766016000&v=beta&t=XHClQlXbEc8po2QvLZMhnS_NowOeqsJEGL-I6YZNxqc",
+          })
+            .then(() => {
+              console.log(user);
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              navigate("/browse");
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -66,7 +90,7 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log(user);
-
+          navigate("/browse");
           // ...
         })
         .catch((error) => {

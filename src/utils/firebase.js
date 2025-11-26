@@ -1,7 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getAuth} from "firebase/auth";
+// import { getAnalytics } from "firebase/analytics";
+import {
+  getAuth,
+  setPersistence,
+  browserSessionPersistence,
+} from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -14,10 +18,19 @@ const firebaseConfig = {
   storageBucket: "netflix-gpt-9b06a.firebasestorage.app",
   messagingSenderId: "456386951682",
   appId: "1:456386951682:web:3b886d963aa29d6fd0c51b",
-  measurementId: "G-REY60JQRK1"
+  measurementId: "G-REY60JQRK1",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-export const auth = getAuth();
+// const analytics = getAnalytics(app);
+
+export const auth = getAuth(app);
+
+setPersistence(auth, browserSessionPersistence)
+  .then(() => {
+    console.log("Auth persistence set to session-only");
+  })
+  .catch((error) => {
+    console.log("Persistence error:", error);
+  });
