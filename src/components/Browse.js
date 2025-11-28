@@ -4,7 +4,7 @@ import Header from './Header'
 const Browse = () => {
   return (
     <>
-    <div className='h-screen bg-gray-600'>
+    <div className='h-screen '>
         <Header/>
     </div>
       

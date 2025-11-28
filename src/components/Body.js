@@ -4,15 +4,15 @@ import Home from "./Home";
 
 import { addUser, removeUser } from "../utils/userSlice";
 
-import { createBrowserRouter, RouterProvider } from "react-router";
-import { useDispatch } from "react-redux";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
 const Body = () => {
   const dispatch = useDispatch();
-
+  const user = useSelector((store) => store.user);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -34,15 +34,15 @@ const Body = () => {
   const appRouter = createBrowserRouter([
     {
       path: "/",
-      Component: Home,
+      element: user ? <Navigate to="/browse" replace /> : <Home />,
     },
     {
       path: "/login",
-      Component: Login,
+      element: user ? <Navigate to="/browse" replace /> : <Login />,
     },
     {
       path: "/browse",
-      Component: Browse,
+      element: user ? <Browse /> : <Navigate to="/login" replace />,
     },
   ]);
   return (
