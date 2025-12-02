@@ -37,7 +37,7 @@ const Header = () => {
           />
         </div>
         <div className="  mr-32 flex items-center gap-x-5">
-          <select
+          {/* <select
             name="language"
             id="language"
             className="rounded-md h-8 w-32 border text-center  bg-black opacity-30 font-bold text-white"
@@ -60,7 +60,7 @@ const Header = () => {
             >
               Telugu
             </option>
-          </select>
+          </select> */}
           {!isLoggedIn && (
             <Link to="/login">
               <button
@@ -77,10 +77,10 @@ const Header = () => {
                 className="cursor-pointer h-8 flex flex-row items-center"
                 onClick={handleProfileMenu}
               >
-                <div className="bg-black text-white">
+                <div className="bg-transparent text-white">
                   <AccountCircleIcon className="h-full w-full" />
                 </div>
-                <span className="p-2 font-semibold text-lg">
+                <span className="p-2 text-lg text-white">
                   {user.displayName.split(" ")[0]}{profileMenu?" 🢁":" 🡻"}
                 </span>
               </div>

@@ -4,7 +4,7 @@ import Home from "./Home";
 
 import { addUser, removeUser } from "../utils/userSlice";
 
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
+import { createBrowserRouter,Navigate, RouterProvider } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
@@ -14,7 +14,7 @@ const Body = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe= onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, email, displayName, photoURL } = user;
         dispatch(
@@ -29,6 +29,7 @@ const Body = () => {
         dispatch(removeUser());
       }
     });
+    return ()=>unsubscribe();
   }, []);
 
   const appRouter = createBrowserRouter([
