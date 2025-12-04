@@ -1,9 +1,8 @@
-import React from "react";
-// import bg from "../assets/bg.png";
+import { BG_IMG_URL } from "../utils/constants";
 import Header from "./Header";
 const Home = () => {
-  const bg="https://assets.nflxext.com/ffe/siteui/vlv3/6fd9d446-cd78-453a-8c9c-417ed3e00422/web/IN-en-20251117-TRIFECTA-perspective_2fe4e381-977f-49fd-a7f4-1da0bcf09429_large.jpg";
-  return (
+  const bg=BG_IMG_URL;
+   return (
     <>
       <div
         className="bg-cover bg-center w-full h-screen"

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import useGetMovieTrailer from "../hooks.js/useGetMovieTrailer";
+import useGetMovieTrailer from "../hooks/useGetMovieTrailer";
 
 const VideoBackground = ({ movieId }) => {
   useGetMovieTrailer(movieId);
@@ -12,7 +12,7 @@ const VideoBackground = ({ movieId }) => {
         src={`https://www.youtube.com/embed/${trailer?.key}?autoplay=1&mute=1&controls=0&loop=1`}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
+        referrerPolicy="strict-origin-when-cross-origin"
       ></iframe>
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
     </div>
