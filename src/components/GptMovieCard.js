@@ -1,13 +1,21 @@
 import { Image_Url } from "../utils/constants";
 import movieGenres from "../utils/movieGenres";
-
+import getMovieCast from "../utils/getMovieCast";
+import { useEffect, useState } from "react";
 const GptMovieCard = ({ movie }) => {
-  const { title, overview, poster_path, genre_ids, release_date } = movie;
-
-  let description = overview.split(".").slice(0, 4).join(".")+".";
-
+  const { id, title, overview, poster_path, genre_ids, release_date } = movie;
+  const [movieCast, setMovieCast] = useState(null);
+  let description = overview.split(".").slice(0, 4).join(".") + ".";
+  async function fetchCast() {
+    const data = await getMovieCast(id);
+    setMovieCast(data?.cast);
+  }
+  useEffect(() => {
+    fetchCast();
+  }, [movie]);
   return (
-    <div className="
+    <div
+      className="
       w-full h-56 p-3 rounded-xl 
       bg-white/5 backdrop-blur-md 
       border border-white/10 
@@ -16,19 +24,19 @@ const GptMovieCard = ({ movie }) => {
       hover:shadow-xl hover:shadow-black/50 
       transition-all duration-300 ease-out 
       flex gap-4 cursor-pointer
-    ">
+    "
+    >
       {/* Poster */}
       <div className="w-36 h-full rounded-lg overflow-hidden shadow-md shadow-black/50">
         <img
           src={Image_Url + poster_path}
-          alt={title + ' poster'}
-          className="w-40 h-44"
+          alt={title + " poster"}
+          className="w-40 h-48 object-cover"
         />
       </div>
 
       {/* Content */}
       <div className="flex flex-col justify-between w-[70%] pr-3">
-        
         <div>
           <h2 className="font-bold text-xl text-white leading-tight">
             {title}
@@ -41,6 +49,24 @@ const GptMovieCard = ({ movie }) => {
           <p className="text-sm text-slate-300 mt-1 line-clamp-3">
             {description}
           </p>
+        </div>
+
+        
+        <div className="mt-2">
+          <span className="text-lg font-semibold text-slate-300">Cast:</span>
+
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide mt-1 pb-1">
+            {movieCast?.map((actor) => (
+              <div
+                key={actor.id}
+                title={actor.known_for_department}
+                className="px-3 py-1 bg-white/10 rounded-full text-gray-300 
+                   text-sm border border-white/20 whitespace-nowrap"
+              >
+                {actor.name}
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Genre Tags */}

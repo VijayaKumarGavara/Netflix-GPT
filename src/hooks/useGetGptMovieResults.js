@@ -1,6 +1,6 @@
 import ai from "../utils/gemini";
 import extractJson from "../utils/extractJSON";
-import { addGptMovieResults } from "../utils/gptSlice";
+import { addGptMovieResults, toggleSearchLoading } from "../utils/gptSlice";
 import { useDispatch } from "react-redux";
 import searchMovie from "../utils/searchMovies";
 
@@ -57,6 +57,7 @@ Example:
 
       // 4️⃣ STORE INTO REDUX
       dispatch(addGptMovieResults(finalResults));
+      dispatch(toggleSearchLoading());
     } catch (error) {
       console.log(error);
     }

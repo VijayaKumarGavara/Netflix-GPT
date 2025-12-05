@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { placeholdersList } from "../utils/constants";
 import useGetGptMovieResults from "../hooks/useGetGptMovieResults";
+import { toggleSearchLoading } from "../utils/gptSlice";
 
 
 export default function GptSearchbar() {
   const [index, setIndex] = useState(0);
   let len = placeholdersList.length;
   const searchText = useRef();
+  const dispatch=useDispatch();
   const getGptMovieResults = useGetGptMovieResults();
   useEffect(() => {
     const timer = setInterval(() => {
@@ -20,9 +23,11 @@ export default function GptSearchbar() {
     e.target.style.height = "auto";
     e.target.style.height = `${e.target.scrollHeight}px`;
   };
-  async function handleSearchButtonClick(e) {
+  function handleSearchButtonClick(e) {
     e.preventDefault();
-    getGptMovieResults(searchText.current.value);
+    if(!searchText.current.value.trim()) return;
+    dispatch(toggleSearchLoading())
+    getGptMovieResults(searchText.current.value.trim());
   }
   return (
     <div className="bg-[rgb(20,20,20)] w-7/12 mx-auto rounded-lg p-4 mt-32 shadow-[0_0_10px_rgba(0,0,0,0.5)]">
