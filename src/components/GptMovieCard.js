@@ -27,7 +27,7 @@ const GptMovieCard = ({ movie }) => {
     "
     >
       {/* Poster */}
-      <div className="w-36 h-full rounded-lg overflow-hidden shadow-md shadow-black/50">
+      <div className="w-36 h-48 rounded-lg overflow-hidden shadow-md shadow-black/50">
         <img
           src={Image_Url + poster_path}
           alt={title + " poster"}
@@ -59,7 +59,7 @@ const GptMovieCard = ({ movie }) => {
             {movieCast?.map((actor) => (
               <div
                 key={actor.id}
-                title={actor.known_for_department}
+                title={actor.character}
                 className="px-3 py-1 bg-white/10 rounded-full text-gray-300 
                    text-sm border border-white/20 whitespace-nowrap"
               >

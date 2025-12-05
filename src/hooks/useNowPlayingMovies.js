@@ -1,10 +1,16 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { API_Options } from "../utils/constants";
-import { addNowPlayingMovies, addSelectedMovieTrailer } from "../utils/moviesSlice";
+import {
+  addNowPlayingMovies,
+  addSelectedMovieTrailer,
+} from "../utils/moviesSlice";
 
 export default function useNowplayingMovies() {
   const dispatch = useDispatch();
+  const nowPlayingMovies = useSelector(
+    (store) => store.movies.nowPlayingMovies
+  );
   async function getNowPlayingMovies() {
     try {
       const response = await fetch(
@@ -13,7 +19,7 @@ export default function useNowplayingMovies() {
       );
       const json = await response.json();
 
-    //   console.log(json);
+      //   console.log(json);
 
       dispatch(addNowPlayingMovies(json.results));
       dispatch(addSelectedMovieTrailer(json.results[0]));
@@ -22,6 +28,6 @@ export default function useNowplayingMovies() {
     }
   }
   useEffect(() => {
-    getNowPlayingMovies();
+    !nowPlayingMovies && getNowPlayingMovies();
   }, []);
 }
