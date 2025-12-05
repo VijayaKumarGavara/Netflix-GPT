@@ -18,5 +18,5 @@ export default function useGetMovieTrailer(movieId){
   }
   useEffect(() => {
     getMovieVideos();
-  }, []);
+  }, [movieId]);
 }

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { API_Options } from "../utils/constants";
-import { addNowPlayingMovies } from "../utils/moviesSlice";
+import { addNowPlayingMovies, addSelectedMovieTrailer } from "../utils/moviesSlice";
 
 export default function useNowplayingMovies() {
   const dispatch = useDispatch();
@@ -16,6 +16,7 @@ export default function useNowplayingMovies() {
     //   console.log(json);
 
       dispatch(addNowPlayingMovies(json.results));
+      dispatch(addSelectedMovieTrailer(json.results[0]));
     } catch (error) {
       console.log(error);
     }

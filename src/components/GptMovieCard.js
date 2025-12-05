@@ -1,31 +1,3 @@
-// import { Image_Url } from "../utils/constants"
-// import movieGenres from "../utils/movieGenres"
-// const GptMovieCard = ({movie}) => {
-//   const {id, title, overview, poster_path, genre_ids, release_date}=movie;
-//   let description=overview.split('.').slice(0,3).join('.');
-//   if(description.at(-1)!==".") description+='.';
-//   return (
-//     <div className="w-full h-44 p-2 border rounded-lg flex gap-4 text-white cursor-pointer">
-//         <div className=" w-40 h-40 ">
-//             <img src={Image_Url+poster_path} alt={title+" poster"} className="size-full object-cover rounded-sm" />
-//         </div>
-//         <div className="w-10/12">
-//             <h2 className="font-bold text-xl p-1">{title} | {release_date.split("-")[0]}</h2>
-//             <p className="text-base text-slate-300">{description}</p>
-//             {genre_ids && (<div className="flex gap-5">
-//                 {
-//                   genre_ids.map((genreId)=>{
-//                     return <span className="text-sky-600 font-medium">{movieGenres[genreId]}</span>
-//                   })
-//                 }
-                
-//             </div>)}
-//         </div>
-//     </div>
-//   )
-
-// }
-// export default GptMovieCard;
 import { Image_Url } from "../utils/constants";
 import movieGenres from "../utils/movieGenres";
 

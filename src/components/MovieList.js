@@ -7,7 +7,7 @@ export default function MovieList({ title, movies }) {
       <div className="flex gap-4 w-full overflow-x-scroll scrollbar-hide  px-12 mb-4">
         {
             movies?.map((movie)=>{
-                return <MovieCard key={movie.id} poster_path={movie?.poster_path} name={movie?.title}/>
+                return <MovieCard key={movie.id} movie={movie}/>
             })
         }
       </div>
